@@ -222,8 +222,26 @@ body, html {
 }
 
 .perspectieven-panel {
-  background-color: #ffffff; /* Wit */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtiele schaduw voor diepte */
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perspectieven-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.perspectieven-panel th,
+.perspectieven-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.perspectieven-panel tr:hover {
+  background-color: #f9f9f9;
 }
 
 .in-context-panel {
@@ -318,6 +336,7 @@ body, html {
 
 .overlay-content {
   padding: 10px;
+  padding-top: 0; /* Verwijder extra padding bovenaan als nodig */
 }
 
 .overlay-panel {
@@ -335,7 +354,7 @@ body, html {
 }
 
 .my-apps-panel {
-  background-color: #e6f2ff; /* Lichtblauwe achtergrond om het te onderscheiden van App shop */
+  background-color: #f9f9f9; /* Lichtblauwe achtergrond om het te onderscheiden van App shop */
 }
 
 .waar-panel .subpanel {
@@ -635,4 +654,141 @@ body, html {
   padding: 20px;
   overflow-y: auto;
   height: calc(100% - 60px);
+}
+
+.app-shop-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.app-shop-panel th,
+.app-shop-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-shop-panel th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.app-shop-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+.my-apps-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.my-apps-panel th,
+.my-apps-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.my-apps-panel th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.my-apps-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+.perspectieven-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.perspectieven-panel th,
+.perspectieven-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.perspectieven-panel th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.perspectieven-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+.alle-producten-panel {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.alle-producten-panel h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.perspectieven-panel h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.alle-producten-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.alle-producten-panel th,
+.alle-producten-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.alle-producten-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Styling voor de scrollbar */
+.alle-producten-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.alle-producten-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.alle-producten-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.alle-producten-panel::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Styling voor de scrollbar (zelfde als alle-producten-panel) */
+.perspectieven-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.perspectieven-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.perspectieven-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.perspectieven-panel::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
