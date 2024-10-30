@@ -146,7 +146,7 @@ const App: React.FC = () => {
             <h2>Waar</h2>
             <div className="subpanel-container">
               <div className="subpanel in-context-panel">
-                <h3>Deelcontexten</h3>
+                <h3>Ga vanuit deze context naar..</h3>
                 {/* Inhoud voor het A-subpaneel */}
                 {deelContextenFunctie()}
               </div>
