@@ -47,6 +47,11 @@ body, html {
   
   .panel {
     width: 100%;
+    margin-top: 0;
+  }
+
+  .wie-panel {
+    margin-top: 0; /* Verwijder extra ruimte boven het panel */
   }
 }
 
@@ -56,8 +61,8 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  padding-bottom: 40px; /* Voor bottom navbar */
-  padding-top: 90px; /* Verhoogd naar 90px om ruimte te maken voor navbar + buttons */
+  padding-bottom: 80px; /* Verhoogd voor beide navbars (40px + 40px) */
+  padding-top: 90px; /* Terug naar originele padding */
 }
 
 /* Top Navbar */
@@ -143,23 +148,23 @@ body, html {
 .button-container {
   display: flex;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
   background-color: #f8f8f8;
   position: fixed;
-  top: 40px; /* Direct onder de navbar */
+  top: 40px;
   left: 0;
   right: 0;
   z-index: 1050;
-  height: 40px; /* Vaste hoogte voor de button container */
+  height: 40px;
 }
 
 .button-container button {
-  padding: 10px 20px;
+  padding: 5px 20px;
   margin: 0 5px;
   cursor: pointer;
   font-size: 14px;
-  min-width: 100px;
-  outline: none; /* Verwijdert de blauwe focus rand */
+  min-width: 120px;
+  outline: none;
 }
 
 .button-container button:focus {
@@ -173,9 +178,12 @@ body, html {
 }
 
 .panel-container {
-  margin-top: 20px; /* Verhoogd van 10px naar 20px */
+  margin-top: 15px;
+  padding: 15px;
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
+  overflow-y: auto;
 }
 
 @media (min-width: 768px) {
@@ -196,12 +204,13 @@ body, html {
 .subpanel-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  gap: 5px;
+  height: calc(100% - 40px);
 }
 
 .subpanel {
   flex: 1;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 10px;
   border-radius: 5px;
 }
@@ -382,7 +391,6 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -410,8 +418,6 @@ body, html {
   align-items: center;
   justify-content: center;
   outline: none;
-  margin-right: 45px;
-  height: 32px;
 }
 
 .left-button {
@@ -449,4 +455,184 @@ body, html {
   justify-content: center;
   height: 32px;
   width: 32px;
+}
+
+.wat-navbar {
+  background-color: white;
+  height: 40px;
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.up-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  outline: none;
+  margin: 0 auto; /* Centreert de button */
+}
+
+/* Bottom Overlay (Clipboard) */
+.overlay-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  z-index: 2000;
+  transform: translateY(100%);
+  transition: transform 1s ease-in-out;
+  visibility: hidden;
+  padding: 20px;
+}
+
+.overlay-bottom.visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.gebruikers-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.gebruikers-panel th,
+.gebruikers-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.gebruikers-panel th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.gebruikers-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+.chat-dialog {
+  padding: 10px;
+  height: calc(100% - 40px); /* Hoogte minus de header */
+  overflow-y: auto;
+}
+
+.chat-message {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.chat-message.received {
+  background-color: #f0f0f0;
+  margin-right: auto;
+}
+
+.chat-message.sent {
+  background-color: #e3f2fd;
+  margin-left: auto;
+}
+
+.chat-message .sender {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+}
+
+@media (max-width: 767px) {
+  .app-container {
+    padding-top: 90px;
+  }
+
+  .button-container {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+    height: 40px;
+  }
+
+  .panel-container {
+    margin-top: 15px;
+    padding: 15px;
+  }
+
+  .panel {
+    width: 100%;
+  }
+
+  .wie-panel, .wat-panel {
+    margin-top: 0;
+  }
+
+  .subpanel-container {
+    gap: 5px;
+  }
+
+  .button-container button {
+    flex: 1;
+    min-width: 110px;
+    margin: 0 3px;
+  }
+}
+
+.global-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background-color: white;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  z-index: 2000;
+  transform: translateY(100%);
+  transition: transform 1s ease-in-out;
+  visibility: hidden;
+}
+
+.global-menu.visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.global-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.global-menu-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.global-menu-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100% - 60px);
 }

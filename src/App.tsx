@@ -9,8 +9,8 @@ const App: React.FC = () => {
   const [isMeOverlayVisible, setIsMeOverlayVisible] = useState(false);
   const [isAppsOverlayVisible, setIsAppsOverlayVisible] = useState(false);
   const [isSettingsOverlayVisible, setIsSettingsOverlayVisible] = useState(false);
-  const [isNotificatiesOverlayVisible, setIsNotificatiesOverlayVisible] = useState(false);
   const [isFormOverlayVisible, setIsFormOverlayVisible] = useState(false);
+  const [isGlobalMenuVisible, setIsGlobalMenuVisible] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -55,12 +55,7 @@ const App: React.FC = () => {
   };
 
   const openNotificatiesOverlay = () => {
-    setIsNotificatiesOverlayVisible(true);
-    setIsMenuOpen(false);
-  };
 
-  const closeNotificatiesOverlay = () => {
-    setIsNotificatiesOverlayVisible(false);
   };
 
   const openFormOverlay = () => {
@@ -73,6 +68,10 @@ const App: React.FC = () => {
     setIsFormOverlayVisible(false);
   };
 
+  const toggleGlobalMenu = () => {
+    setIsGlobalMenuVisible(!isGlobalMenuVisible);
+  };
+
   return (
     <div className="app-container">
       <nav className="navbar">
@@ -83,11 +82,10 @@ const App: React.FC = () => {
               <a href="#" onClick={openMeOverlay}>Me</a>
               <a href="#" onClick={openAppsOverlay}>Apps</a>
               <a href="#" onClick={openSettingsOverlay}>Settings</a>
-              <a href="#" onClick={openNotificatiesOverlay}>Notificaties</a>
             </div>
           )}
         </div>
-        <h1>Boodschappenlijstje</h1>
+        <h1>Boodschappenlijstje 9-10-2024</h1>
         <button className="nav-button small">⚡</button>
       </nav>
       {isSmallScreen && (
@@ -118,19 +116,12 @@ const App: React.FC = () => {
             <h2>Wie</h2>
             <div className="subpanel-container">
               <div className="subpanel gebruikers-panel">
-                <h3>Gebruikers</h3>
-                {/* Inhoud voor het Gebruikers-subpanel */}
-                {gebruikersrollenFunctie()}
+                <h3>Boodschappers</h3>
+                <div dangerouslySetInnerHTML={{ __html: gebruikersrollenFunctie() }} />
               </div>
               <div className="subpanel chat-panel">
-                <h3>Chat</h3>
-                {/* Inhoud voor het Chat-subpanel */}
-                {contextChatFunctie()}
-              </div>
-              <div className="subpanel chat-panel">
-                <h3>Notificaties</h3>
-                {/* Inhoud voor het Chat-subpanel */}
-                {contextNotificatiesFunctie()}
+
+                <div dangerouslySetInnerHTML={{ __html: contextChatFunctie() }} />
               </div>
             </div>
           </div>
@@ -199,14 +190,6 @@ const App: React.FC = () => {
         {/* Inhoud voor de Settings overlay */}
       </div>
 
-      <div className={`overlay ${isNotificatiesOverlayVisible ? 'visible' : ''}`}>
-        <button className="close-overlay" onClick={closeNotificatiesOverlay}>×</button>
-        <h2>Notificaties</h2>
-        <div className="overlay-content">
-          <p>Geen nieuwe notificaties</p>
-        </div>
-      </div>
-
       {isSmallScreen && (
         <div className={`overlay overlay-right ${isFormOverlayVisible ? 'visible' : ''}`}>
           <button className="close-overlay" onClick={closeFormOverlay}>×</button>
@@ -220,9 +203,26 @@ const App: React.FC = () => {
 
       <nav className="bottom-navbar">
         <button className="small-button left-button">←</button>
-        <h1></h1>
+        <button className="small-button up-button" onClick={toggleGlobalMenu}>↑</button>
         <button className="small-button">→</button>
       </nav>
+
+      {activePanel === 'wat' && (
+        <div className="wat-navbar">
+          <button className="up-button">↑</button>
+        </div>
+      )}
+
+      {/* Global Menu Panel */}
+      <div className={`global-menu ${isGlobalMenuVisible ? 'visible' : ''}`}>
+        <div className="global-menu-header">
+          <h2>Global Menu</h2>
+          <button className="close-overlay" onClick={() => setIsGlobalMenuVisible(false)}>×</button>
+        </div>
+        <div className="global-menu-content">
+          {/* Hier komt de content van het global menu */}
+        </div>
+      </div>
     </div>
   );
 };
@@ -230,11 +230,56 @@ const App: React.FC = () => {
 export default App;
 
 const gebruikersrollenFunctie = (): string => {
-  return "Gebruikersrollen";
+  return `
+    <table>
+      <tr>
+        <th>Naam</th>
+        <th>Datum</th>
+        <th>Totaal bedrag</th>
+      </tr>
+      <tr>
+        <td>Jan</td>
+        <td>01-01-2024</td>
+        <td>34.50</td>
+      </tr>
+      <tr>
+        <td>Piet</td>
+        <td>02-01-2024</td>
+        <td>42.00</td>
+      </tr>
+      <tr>
+        <td>Klaas</td>
+        <td>03-01-2024</td>
+        <td>28.75</td>
+      </tr>
+      <tr>
+        <td>Marie</td>
+        <td>04-01-2024</td>
+        <td>55.25</td>
+      </tr>
+      <tr>
+        <td>Sophie</td>
+        <td>05-01-2024</td>
+        <td>31.80</td>
+      </tr>
+    </table>
+  `;
 };
 
 const contextChatFunctie = (): string => {
-  return "Context Chat";
+  return `
+    <div class="chat-dialog">
+      <div class="chat-message received">
+        <span class="sender">Jan:</span> Hoi, heb je de boodschappenlijst al gezien?
+      </div>
+      <div class="chat-message sent">
+        <span class="sender">Piet:</span> Ja, ik ga straks naar de supermarkt!
+      </div>
+      <div class="chat-message received">
+        <span class="sender">Jan:</span> Super, vergeet de melk niet 😊
+      </div>
+    </div>
+  `;
 };
 
 const contextNotificatiesFunctie = (): string => {
