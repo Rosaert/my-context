@@ -11,6 +11,7 @@ const App: React.FC = () => {
   const [isSettingsOverlayVisible, setIsSettingsOverlayVisible] = useState(false);
   const [isFormOverlayVisible, setIsFormOverlayVisible] = useState(false);
   const [isGlobalMenuVisible, setIsGlobalMenuVisible] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -70,6 +71,22 @@ const App: React.FC = () => {
 
   const toggleGlobalMenu = () => {
     setIsGlobalMenuVisible(!isGlobalMenuVisible);
+  };
+
+  const handleDeelcontextClick = (product: string) => {
+    if (product === 'Melk') {
+      setIsFormVisible(true);
+    }
+  };
+
+  // Aangepaste functie voor de deelcontext tabel
+  const deelcontextTabelFunctie = () => {
+    const tableHtml = alleProductenFunctie(); // De originele HTML string
+    // Voeg onClick handler toe aan de Melk rij
+    return tableHtml.replace(
+      /<tr([^>]*)>([^<]*Melk[^<]*)<\/tr>/g, 
+      '<tr$1 class="clickable" onclick="handleDeelcontextClick(\'Melk\')"$2</tr>'
+    );
   };
 
   return (
@@ -147,8 +164,15 @@ const App: React.FC = () => {
             <div className="subpanel-container">
               <div className="subpanel in-context-panel">
                 <h3>Ga vanuit deze context naar..</h3>
-                {/* Inhoud voor het A-subpaneel */}
-                {deelContextenFunctie()}
+                <div 
+                  dangerouslySetInnerHTML={{ __html: deelcontextTabelFunctie() }}
+                  onClick={(e) => {
+                    const row = (e.target as HTMLElement).closest('tr');
+                    if (row?.textContent?.includes('Melk')) {
+                      handleDeelcontextClick('Melk');
+                    }
+                  }}
+                />
               </div>
               <div className="subpanel laatste-panel">
                 <h3>laatst Gekozen Contexten</h3>
@@ -219,6 +243,15 @@ const App: React.FC = () => {
         </div>
         <div className="global-menu-content">
           {/* Hier komt de content van het global menu */}
+        </div>
+      </div>
+
+      {/* Form Overlay */}
+      <div className={`overlay overlay-right ${isFormVisible ? 'visible' : ''}`}>
+        <button className="close-overlay" onClick={() => setIsFormVisible(false)}>×</button>
+        <h2>Form</h2>
+        <div className="overlay-content">
+          {/* Form content */}
         </div>
       </div>
     </div>

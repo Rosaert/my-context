@@ -246,6 +246,42 @@ body, html {
 
 .in-context-panel {
   background-color: #ffffff; /* Lichtste blauw */
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.in-context-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.in-context-panel th,
+.in-context-panel td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.in-context-panel tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Scrollbar styling */
+.in-context-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.in-context-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.in-context-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.in-context-panel::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .laatste-panel {
@@ -791,4 +827,12 @@ body, html {
 
 .perspectieven-panel::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.in-context-panel tr.clickable {
+  cursor: pointer;
+}
+
+.in-context-panel tr.clickable:hover {
+  background-color: #f0f0f0;
 }
