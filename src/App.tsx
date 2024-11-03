@@ -228,6 +228,7 @@ const App: React.FC = () => {
             </div>
           </div>
         )}
+        
       </div>
       <div className={`overlay ${isMeOverlayVisible ? 'visible' : ''}`}>
         <button className="close-overlay" onClick={closeMeOverlay}>×</button>
