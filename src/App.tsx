@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const App: React.FC = () => {
   // Voeg 'waar' toe aan de mogelijke activePanel waarden
@@ -9,9 +11,11 @@ const App: React.FC = () => {
   const [isMeOverlayVisible, setIsMeOverlayVisible] = useState(false);
   const [isAppsOverlayVisible, setIsAppsOverlayVisible] = useState(false);
   const [isSettingsOverlayVisible, setIsSettingsOverlayVisible] = useState(false);
-  const [isFormOverlayVisible, setIsFormOverlayVisible] = useState(false);
   const [isGlobalMenuVisible, setIsGlobalMenuVisible] = useState(false);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isCenterPanelVisible, setIsCenterPanelVisible] = useState(false);
+  const [isRightOverlayVisible, setIsRightOverlayVisible] = useState(false);
+  const [isNotificatiesPanelVisible, setIsNotificatiesPanelVisible] = useState(false);
+  const [isClipboardPanelVisible, setIsClipboardPanelVisible] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -42,10 +46,6 @@ const App: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const closeAppsOverlay = () => {
-    setIsAppsOverlayVisible(false);
-  };
-
   const openSettingsOverlay = () => {
     setIsSettingsOverlayVisible(true);
     setIsMenuOpen(false);
@@ -55,29 +55,10 @@ const App: React.FC = () => {
     setIsSettingsOverlayVisible(false);
   };
 
-  const openNotificatiesOverlay = () => {
-
-  };
-
-  const openFormOverlay = () => {
-    if (isSmallScreen) {
-      setIsFormOverlayVisible(true);
-    }
-  };
-
-  const closeFormOverlay = () => {
-    setIsFormOverlayVisible(false);
-  };
-
   const toggleGlobalMenu = () => {
     setIsGlobalMenuVisible(!isGlobalMenuVisible);
   };
 
-  const handleDeelcontextClick = (product: string) => {
-    if (product === 'Melk') {
-      setIsFormVisible(true);
-    }
-  };
 
   // Aangepaste functie voor de deelcontext tabel
   const deelcontextTabelFunctie = () => {
@@ -87,6 +68,41 @@ const App: React.FC = () => {
       /<tr([^>]*)>([^<]*Melk[^<]*)<\/tr>/g, 
       '<tr$1 class="clickable" onclick="handleDeelcontextClick(\'Melk\')"$2</tr>'
     );
+  };
+
+  const toggleCenterPanel = () => {
+    setIsCenterPanelVisible(!isCenterPanelVisible);
+  };
+
+  const handleProductClick = (rowIndex: number) => {
+    if (rowIndex === 1) { // Eerste rij (na header)
+      setIsRightOverlayVisible(true);
+    }
+  };
+
+  // Component voor de Alle producten tabel met click handler
+  const AlleProductenTable: React.FC = () => {
+    return (
+      <div 
+        dangerouslySetInnerHTML={{ __html: alleProductenFunctie() }}
+        onClick={(e) => {
+          const row = (e.target as HTMLElement).closest('tr');
+          if (row) {
+            handleProductClick(row.rowIndex);
+          }
+        }}
+      />
+    );
+  };
+
+  const handleMenuItemClick = (item: string) => {
+    if (item === 'Notificaties') {
+      setIsNotificatiesPanelVisible(true);
+      setIsGlobalMenuVisible(false); // Sluit het menu
+    } else if (item === 'Clipboard') {
+      setIsClipboardPanelVisible(true);
+      setIsGlobalMenuVisible(false);
+    }
   };
 
   return (
@@ -102,8 +118,14 @@ const App: React.FC = () => {
             </div>
           )}
         </div>
-        <h1>Boodschappenlijstje 9-10-2024</h1>
-        <button className="nav-button small">⚡</button>
+        <h1 onClick={toggleCenterPanel} style={{ cursor: 'pointer' }}>
+          Boodschappenlijstje 9-11-2024
+        </h1>
+        <button 
+          className="nav-button small"
+        >
+          ⚡
+        </button>
       </nav>
       {isSmallScreen && (
         <div className="button-container">
@@ -137,14 +159,13 @@ const App: React.FC = () => {
                 <div dangerouslySetInnerHTML={{ __html: gebruikersrollenFunctie() }} />
               </div>
               <div className="subpanel chat-panel">
-
                 <div dangerouslySetInnerHTML={{ __html: contextChatFunctie() }} />
               </div>
             </div>
           </div>
         )}
         {(!isSmallScreen || activePanel === 'wat') && (
-          <div className="panel wat-panel" onClick={openFormOverlay}>
+          <div className="panel wat-panel">
             <h2>Wat</h2>
             <div className="subpanel-container">
               <div className="subpanel perspectieven-panel">
@@ -153,7 +174,28 @@ const App: React.FC = () => {
               </div>
               <div className="subpanel alle-producten-panel">
                 <h3>Alle producten</h3>
-                <div dangerouslySetInnerHTML={{ __html: alleProductenFunctie() }} />
+                <AlleProductenTable />
+              </div>
+              <div className="subpanel form-panel">
+                <h3>Melk1</h3>
+                {/* Form content hier */}
+                <div className="details-field">
+            <label>Soort</label>
+            <div className="field-options">
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="halfvol" defaultChecked />
+                Halfvol
+              </label>
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="vol" />
+                Vol
+              </label>
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="calcium" />
+                Met extra Calcium
+              </label>
+            </div>
+          </div>
               </div>
             </div>
           </div>
@@ -169,20 +211,19 @@ const App: React.FC = () => {
                   onClick={(e) => {
                     const row = (e.target as HTMLElement).closest('tr');
                     if (row?.textContent?.includes('Melk')) {
-                      handleDeelcontextClick('Melk');
+                      handleProductClick(1);
                     }
                   }}
                 />
               </div>
               <div className="subpanel laatste-panel">
-                <h3>laatst Gekozen Contexten</h3>
-                {/* Inhoud voor het C-subpaneel */}
-                {laatstGekozenContextenFunctie()}
+                <h3>Laatst Gekozen Contexten</h3>
+                <div dangerouslySetInnerHTML={{ __html: laatstGekozenContextenFunctie() }} />
               </div>
               <div className="subpanel gepinde-panel">
                 <h3>Gepinde Contexten</h3>
-                {/* Inhoud voor het C-subpaneel */}
-                {gepindeContextenFunctie()}
+                <div dangerouslySetInnerHTML={{ __html: gepindeContextenFunctie() }} />
+
               </div>
             </div>
           </div>
@@ -191,7 +232,13 @@ const App: React.FC = () => {
       <div className={`overlay ${isMeOverlayVisible ? 'visible' : ''}`}>
         <button className="close-overlay" onClick={closeMeOverlay}>×</button>
         <h2>Me</h2>
-        {/* Inhoud voor de Me overlay */}
+        {/* Nieuw lichtblauw panel */}
+        <div className="me-blue-panel">
+          <h4>Informatie</h4>
+          <div className="panel-content">
+            {/* Hier komt de content van het panel */}
+          </div>
+        </div>
       </div>
 
       <div className={`overlay ${isAppsOverlayVisible ? 'visible' : ''}`}>
@@ -212,17 +259,6 @@ const App: React.FC = () => {
         {/* Inhoud voor de Settings overlay */}
       </div>
 
-      {isSmallScreen && (
-        <div className={`overlay overlay-right ${isFormOverlayVisible ? 'visible' : ''}`}>
-          <button className="close-overlay" onClick={closeFormOverlay}>×</button>
-          <h2>Form</h2>
-          <div className="overlay-content">
-            {/* Hier kun je je form content toevoegen */}
-            <p>Form content komt hier</p>
-          </div>
-        </div>
-      )}
-
       <nav className="bottom-navbar">
         <button className="small-button left-button">←</button>
         <button className="small-button up-button" onClick={toggleGlobalMenu}>↑</button>
@@ -235,23 +271,77 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Global Menu Panel */}
+      {/* Menu Panel zonder titel */}
       <div className={`global-menu ${isGlobalMenuVisible ? 'visible' : ''}`}>
-        <div className="global-menu-header">
-          <h2>Global Menu</h2>
-          <button className="close-overlay" onClick={() => setIsGlobalMenuVisible(false)}>×</button>
-        </div>
-        <div className="global-menu-content">
-          {/* Hier komt de content van het global menu */}
+        <button className="close-overlay" onClick={() => setIsGlobalMenuVisible(false)}>×</button>
+        <div className="menu-content">
+          <div className="menu-item" onClick={() => handleMenuItemClick('Notificaties')}>
+            <span>Notificaties</span>
+          </div>
+          <div className="menu-item" onClick={() => handleMenuItemClick('Clipboard')}>
+            <span>Clipboard</span>
+          </div>
         </div>
       </div>
 
-      {/* Form Overlay */}
-      <div className={`overlay overlay-right ${isFormVisible ? 'visible' : ''}`}>
-        <button className="close-overlay" onClick={() => setIsFormVisible(false)}>×</button>
-        <h2>Form</h2>
+      {/* Nieuw centraal panel */}
+      {isCenterPanelVisible && (
+        <div className="center-panel-overlay">
+          <div className="center-panel">
+            <button className="close-overlay" onClick={() => setIsCenterPanelVisible(false)}>×</button>
+            <div className="center-panel-content">
+              <p className="context-text">
+                Je bevindt je in het boodschappenlijstje van 9 november 2024 van de Boodschappen App in de rol van Boodschapper.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Nieuwe right overlay */}
+      <div className={`right-overlay ${isRightOverlayVisible ? 'visible' : ''}`}>
+        <button className="close-overlay" onClick={() => setIsRightOverlayVisible(false)}>×</button>
         <div className="overlay-content">
-          {/* Form content */}
+          <h3>Melk</h3>
+          <div className="details-field">
+            <label>Soort</label>
+            <div className="field-options">
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="halfvol" defaultChecked />
+                Halfvol
+              </label>
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="vol" />
+                Vol
+              </label>
+              <label className="radio-label">
+                <input type="radio" name="melksoort" value="calcium" />
+                Met extra Calcium
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Nieuw Notificaties Panel */}
+      <div className={`notificaties-panel ${isNotificatiesPanelVisible ? 'visible' : ''}`}>
+        <div className="notificaties-header">
+          <h3>Notificaties</h3>
+          <button className="close-overlay" onClick={() => setIsNotificatiesPanelVisible(false)}>×</button>
+        </div>
+        <div className="notificaties-content">
+          {/* Hier komt de content van het notificaties panel */}
+        </div>
+      </div>
+
+      {/* Nieuw Clipboard Panel */}
+      <div className={`clipboard-panel ${isClipboardPanelVisible ? 'visible' : ''}`}>
+        <div className="clipboard-header">
+          <h3>Clipboard</h3>
+          <button className="close-overlay" onClick={() => setIsClipboardPanelVisible(false)}>×</button>
+        </div>
+        <div className="clipboard-content">
+          {/* Hier komt de content van het clipboard panel */}
         </div>
       </div>
     </div>
@@ -356,16 +446,33 @@ const perspectievenPaneelFunctie = (): string => {
   `;
 };
 
-const deelContextenFunctie = (): string => {
-  return "Deelcontexten";
-};
-
 const laatstGekozenContextenFunctie = (): string => {
-  return "Laatst gekozen contexten";
+  return `
+    <table>
+      <tr>
+        <td>Boodschappenlijstje</td>
+      </tr>
+      <tr>
+        <td>Buurtfeest</td>
+      </tr>
+    </table>
+  `;
 };
 
 const gepindeContextenFunctie = (): string => {
-  return "Gepinde Contexten";
+  return `
+    <table>
+      <tr>
+        <td>Buurtfeest</td>
+      </tr>
+      <tr>
+        <td>Zorgen voor Koen</td>
+      </tr>
+      <tr>
+        <td>WA Verzekering</td>
+      </tr>
+    </table>
+  `;
 };
 
 const appShopsFunctie = (): string => {

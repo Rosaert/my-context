@@ -1,8 +1,32 @@
+/* Root div styling */
+#root {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App container styling */
+.app-container {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Reset voor body en html */
 body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -55,16 +79,6 @@ body, html {
   }
 }
 
-.app-container {
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  padding-bottom: 80px; /* Verhoogd voor beide navbars (40px + 40px) */
-  padding-top: 90px; /* Terug naar originele padding */
-}
-
 /* Top Navbar */
 .navbar {
   background-color: #6f98c8;
@@ -79,15 +93,19 @@ body, html {
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1100;
+  z-index: 1200;
   height: 40px;
 }
 
 .navbar h1 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Iets kleiner font voor betere fit */
   text-align: center;
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap; /* Voorkomt dat de tekst op meerdere regels komt */
 }
 
 .hamburger-menu {
@@ -151,10 +169,10 @@ body, html {
   padding: 5px;
   background-color: #f8f8f8;
   position: fixed;
-  top: 40px;
+  top: 40px; /* Direct onder de navbar */
   left: 0;
   right: 0;
-  z-index: 1050;
+  z-index: 1100;
   height: 40px;
 }
 
@@ -182,7 +200,7 @@ body, html {
   padding: 15px;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 0;
   overflow-y: auto;
 }
 
@@ -245,25 +263,36 @@ body, html {
 }
 
 .in-context-panel {
-  background-color: #ffffff; /* Lichtste blauw */
-  max-height: 300px;
+  flex: 2; /* Behoud relatieve grootte */
+  min-height: 300px; /* Verkleind van 400px naar 300px */
+  padding: 15px; /* Iets minder padding */
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 10px;
   overflow-y: auto;
 }
 
+.in-context-panel h3 {
+  margin-bottom: 15px; /* Iets minder marge */
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Aanpassing voor de tabel binnen het panel */
 .in-context-panel table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.in-context-panel th,
-.in-context-panel td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.in-context-panel td, 
+.in-context-panel th {
+  padding: 10px; /* Iets minder padding in de cellen */
+  border-bottom: 1px solid #eee;
 }
 
 .in-context-panel tr:hover {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
 }
 
 /* Scrollbar styling */
@@ -322,34 +351,60 @@ body, html {
   transform: translateX(-100%);
 }
 
-/* Rechter overlay (Form) */
+/* Rechter overlay (Form) - alleen voor smartphone */
+.overlay-right {
+  display: none; /* Standaard verborgen */
+}
+
+/* Toon Form alleen op smartphone */
 @media (max-width: 767px) {
   .overlay-right {
     display: block;
     right: 0;
+    left: auto;
+    transform: translateX(100%);
     width: 100%;
     max-width: none;
-    transform: translateX(100%);
-    text-align: center; /* Centreer alle tekst */
   }
   
   .overlay-right.visible {
     transform: translateX(0);
+    visibility: visible;
   }
-
-  .overlay-right h2 {
-    text-align: center; /* Centreer de titel */
-    margin-bottom: 20px;
-  }
-
+  
   .overlay-right .overlay-content {
-    text-align: center; /* Centreer de content */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .overlay-right h2 {
+    text-align: center;
+    margin-bottom: 20px;
   }
 }
 
+/* Zichtbare staat voor alle overlays */
 .overlay.visible {
   transform: translateX(0);
   visibility: visible;
+}
+
+/* Specifieke styling voor de Form overlay op mobiel en tablet */
+@media (max-width: 1024px) {
+  .overlay-right {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .overlay-right .overlay-content {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .overlay-right h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 }
 
 .close-overlay {
@@ -502,9 +557,8 @@ body, html {
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
-  margin-right: 45px;
   position: absolute;
-  right: 0;
+  right: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -617,7 +671,7 @@ body, html {
 
 @media (max-width: 767px) {
   .app-container {
-    padding-top: 90px;
+    padding-top: 80px;
   }
 
   .button-container {
@@ -659,7 +713,7 @@ body, html {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60%;
+  height: 15%;
   background-color: white;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
   z-index: 2000;
@@ -687,9 +741,28 @@ body, html {
 }
 
 .global-menu-content {
-  padding: 20px;
-  overflow-y: auto;
-  height: calc(100% - 60px);
+  padding: 15px;
+}
+
+.menu-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-item span {
+  color: #333;
+  font-size: 1rem;
 }
 
 .app-shop-panel table {
@@ -835,4 +908,364 @@ body, html {
 
 .in-context-panel tr.clickable:hover {
   background-color: #f0f0f0;
+}
+
+/* Specifieke styling voor het rechterpijltje */
+.bottom-navbar .small-button:last-child {
+  margin-right: 45px; /* Vergroot deze waarde om het pijltje meer naar links te verplaatsen */
+}
+
+.center-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.center-panel {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  min-height: 150px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.center-panel .close-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.center-panel-content {
+  overflow-y: auto;
+  max-height: calc(80vh - 60px);
+  padding: 10px 0;
+}
+
+.context-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  margin: 35px 0;
+  text-align: center;
+}
+
+/* Tablet en desktop layout voor het Wat panel */
+@media (min-width: 768px) {
+  .wat-panel .subpanel-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .perspectieven-panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .alle-producten-panel {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .form-panel {
+    grid-column: 2;
+    grid-row: 1 / span 2; /* Span over beide rijen */
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: calc(650px + 15px); /* Hoogte van twee panels (300px * 2) plus de gap ertussen */
+    overflow-y: auto;
+    align-self: start; /* Zorgt ervoor dat het panel aan de bovenkant blijft */
+  }
+
+  .perspectieven-panel,
+  .alle-producten-panel {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    overflow-y: auto;
+  }
+}
+
+/* Verberg Form panel op mobiel */
+@media (max-width: 767px) {
+  .form-panel {
+    display: none;
+  }
+
+  .alle-producten-panel tr {
+    cursor: pointer;
+  }
+
+  .alle-producten-panel tr:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+/* Me overlay panel styling */
+.me-blue-panel {
+  background-color: #d2e4f7; /* Lichtblauwe achtergrond */
+  border-radius: 4px;
+  padding: 15px;
+  margin: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.me-blue-panel h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.me-blue-panel .panel-content {
+  background-color: white;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+/* Aanpassing voor de Me overlay */
+.overlay h2 {
+  margin: 15px;
+}
+
+/* Right overlay styling */
+.right-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 400px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  z-index: 2000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  visibility: hidden;
+}
+
+.right-overlay.visible {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.right-overlay .overlay-content {
+  padding: 15px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.right-overlay .close-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Styling voor klikbare rijen */
+.alle-producten-panel tr {
+  cursor: pointer;
+}
+
+.alle-producten-panel tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styling voor beide panels */
+.alle-producten-panel tr,
+.in-context-panel tr {
+  cursor: pointer;
+}
+
+.alle-producten-panel tr:hover,
+.in-context-panel tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Bestaande overlay styling blijft ongewijzigd */
+
+/* Radio button styling */
+.field-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+}
+
+.radio-label input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Laatst gekozen contexten panel styling */
+.laatste-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.laatste-panel th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #ddd;
+  color: #666;
+}
+
+.laatste-panel td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.laatste-panel tr:hover td {
+  background-color: #f5f5f5;
+}
+
+/* Gepinde contexten panel styling */
+.gepinde-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gepinde-panel th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #ddd;
+  color: #666;
+}
+
+.gepinde-panel td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.gepinde-panel tr:hover td {
+  background-color: #f5f5f5;
+}
+
+/* Notificaties panel styling */
+.notificaties-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1100;
+  height: 60vh; /* 60% van de viewport hoogte */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.notificaties-panel.visible {
+  transform: translateY(0);
+}
+
+.notificaties-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.notificaties-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.notificaties-content {
+  padding: 20px;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
+/* Aanpassing voor de close button */
+.notificaties-panel .close-overlay {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Clipboard panel styling */
+.clipboard-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1100;
+  height: 60vh; /* 60% van de viewport hoogte */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.clipboard-panel.visible {
+  transform: translateY(0);
+}
+
+.clipboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.clipboard-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.clipboard-content {
+  padding: 20px;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
+/* Aanpassing voor de close button */
+.clipboard-panel .close-overlay {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
 }
