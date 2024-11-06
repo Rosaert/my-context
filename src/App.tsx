@@ -177,7 +177,7 @@ const App: React.FC = () => {
                 <AlleProductenTable />
               </div>
               <div className="subpanel form-panel">
-                <h3>Melk1</h3>
+                <h3>Melk</h3>
                 {/* Form content hier */}
                 <div className="details-field">
             <label>Soort</label>
@@ -234,12 +234,6 @@ const App: React.FC = () => {
         <button className="close-overlay" onClick={closeMeOverlay}>×</button>
         <h2>Me</h2>
         {/* Nieuw lichtblauw panel */}
-        <div className="me-blue-panel">
-          <h4>Informatie</h4>
-          <div className="panel-content">
-            {/* Hier komt de content van het panel */}
-          </div>
-        </div>
       </div>
 
       <div className={`overlay ${isAppsOverlayVisible ? 'visible' : ''}`}>
