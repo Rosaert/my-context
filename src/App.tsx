@@ -176,6 +176,7 @@ const App: React.FC = () => {
             </div>
           </div>
           
+          
         )}
         {(!isSmallScreen || activePanel === 'wat') && (
           <div className="panel wat-panel">

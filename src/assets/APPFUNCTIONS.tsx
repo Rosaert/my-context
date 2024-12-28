@@ -125,6 +125,7 @@ export const APPFUNCTIONS = {
     `;
   },
 
+  
   BoodschappenFunctie: (): string => {
     return `
       <table>
