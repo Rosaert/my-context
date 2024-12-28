@@ -218,29 +218,10 @@ const App: React.FC = () => {
               <div className="subpanel perspectieven-panel">
                 <div dangerouslySetInnerHTML={{ __html: perspectievenPaneelFunctie() }} />
               </div>
-              <div className="subpanel form-panel">
-                <h3>Melk</h3>
-                <div className="details-field">
-                  <label>Soort</label>
-                  <div className="field-options">
-                    <label className="radio-label">
-                      <input type="radio" name="melksoort" value="halfvol" defaultChecked />
-                      Halfvol
-                    </label>
-                    <label className="radio-label">
-                      <input type="radio" name="melksoort" value="vol" />
-                      Vol
-                    </label>
-                    <label className="radio-label">
-                      <input type="radio" name="melksoort" value="calcium" />
-                      Met extra Calcium
-                    </label>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         )}
+        
         {(!isSmallScreen || activePanel === 'waar') && (
           <div className="panel waar-panel">
             <h2>Waar</h2>
