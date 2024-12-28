@@ -75,8 +75,8 @@ body, html {
     margin-top: 0;
   }
 
-  .wie-panel {
-    margin-top: 0; /* Verwijder extra ruimte boven het panel */
+  .wie-panel, .wat-panel, .waar-panel {
+    min-height: 600px;  /* Toegevoegd voor langere panels op mobiel */
   }
 }
 
@@ -208,13 +208,16 @@ body, html {
 @media (min-width: 768px) {
   .panel-container {
     flex-wrap: nowrap;
-    min-height: 800px;  /* Toegevoegd voor langere panels */
+    min-height: 800px;
   }
 
   .wie-panel,
-  .wat-panel,
   .waar-panel {
     flex: 1;
+  }
+
+  .wat-panel {
+    flex: 2;  /* Twee keer zo breed als de andere panels */
   }
 }
 
@@ -715,8 +718,8 @@ body, html {
     width: 100%;
   }
 
-  .wie-panel, .wat-panel {
-    margin-top: 0;
+  .wie-panel, .wat-panel, .waar-panel {
+    min-height: 600px;  /* Toegevoegd voor langere panels op mobiel */
   }
 
   .subpanel-container {
