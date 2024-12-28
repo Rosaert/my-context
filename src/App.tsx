@@ -41,6 +41,27 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  useEffect(() => {
+    document.addEventListener('click', (e) => {
+      const header = (e.target as HTMLElement).closest('.clickable-header');
+      if (header) {
+        const targetId = header.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        if (content) {
+          if (window.getComputedStyle(content).display === 'none') {
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
+          }
+        }
+      }
+    });
+
+    return () => {
+      document.removeEventListener('click', (e) => {});
+    };
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -195,33 +216,27 @@ const App: React.FC = () => {
             <h2>Wat</h2>
             <div className="subpanel-container">
               <div className="subpanel perspectieven-panel">
-                
                 <div dangerouslySetInnerHTML={{ __html: perspectievenPaneelFunctie() }} />
-              </div>
-              <div className="subpanel alle-producten-panel">
-                <h3>Alle producten</h3>
-                <AlleProductenTable />
               </div>
               <div className="subpanel form-panel">
                 <h3>Melk</h3>
-                {/* Form content hier */}
                 <div className="details-field">
-            <label>Soort</label>
-            <div className="field-options">
-              <label className="radio-label">
-                <input type="radio" name="melksoort" value="halfvol" defaultChecked />
-                Halfvol
-              </label>
-              <label className="radio-label">
-                <input type="radio" name="melksoort" value="vol" />
-                Vol
-              </label>
-              <label className="radio-label">
-                <input type="radio" name="melksoort" value="calcium" />
-                Met extra Calcium
-              </label>
-            </div>
-          </div>
+                  <label>Soort</label>
+                  <div className="field-options">
+                    <label className="radio-label">
+                      <input type="radio" name="melksoort" value="halfvol" defaultChecked />
+                      Halfvol
+                    </label>
+                    <label className="radio-label">
+                      <input type="radio" name="melksoort" value="vol" />
+                      Vol
+                    </label>
+                    <label className="radio-label">
+                      <input type="radio" name="melksoort" value="calcium" />
+                      Met extra Calcium
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

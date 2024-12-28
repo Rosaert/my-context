@@ -1258,3 +1258,11 @@ body, html {
   cursor: pointer;
   padding: 5px;
 }
+
+.hidden-content {
+  display: none;
+}
+
+.clickable-header {
+  cursor: pointer;
+}
