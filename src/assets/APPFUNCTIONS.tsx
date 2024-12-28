@@ -52,30 +52,27 @@ export const APPFUNCTIONS = {
     return `
       <table>
         <tr>
-          <td>
+          <th class="clickable-header" data-target="list-1">Boodschappenlijstje</th>
+        </tr>
+        <tr>
+          <td class="hidden-content" id="list-1">
             <table>
-              <tr><th class="clickable-header" data-target="list-1">Boodschappenlijstje</th></tr>
-              <tr><td class="hidden-content" id="list-1">
-                <table>
-                  <tr><td>Melk</td></tr>
-                  <tr><td>Brood</td></tr>
-                  <tr><td>Kaas</td></tr>
-                </table>
-              </td></tr>
+              <tr><td>Melk</td></tr>
+              <tr><td>Brood</td></tr>
+              <tr><td>Kaas</td></tr>
+              <tr><td>Eieren</td></tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td>
+          <th class="clickable-header" data-target="list-2">Producten</th>
+        </tr>
+        <tr>
+          <td class="hidden-content" id="list-2">
             <table>
-              <tr><th class="clickable-header" data-target="list-2">Producten</th></tr>
-              <tr><td class="hidden-content" id="list-2">
-                <table>
-                  <tr><td>Zuivel</td></tr>
-                  <tr><td>Brood</td></tr>
-                  <tr><td>Groente</td></tr>
-                </table>
-              </td></tr>
+              <tr><td>Zuivel</td></tr>
+              <tr><td>Brood & Banket</td></tr>
+              <tr><td>Groente & Fruit</td></tr>
             </table>
           </td>
         </tr>

@@ -57,6 +57,7 @@ body, html {
 .wat-panel {
   background-color: #d2e4f7; /* Behoud de oorspronkelijke kleur van het Wat panel */
   color: #333333; /* Donkere tekst voor goede leesbaarheid */
+  min-height: 600px; /* of een andere gewenste hoogte */
 }
 
 .waar-panel {
@@ -241,7 +242,7 @@ body, html {
 
 
 .perspectieven-panel {
-  max-height: 300px;
+  max-height: 700px;  /* Verhoogd van 500px */
   overflow-y: auto;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -464,9 +465,9 @@ body, html {
 }
 
 .wat-panel .subpanel-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .wat-panel .subpanel {
@@ -486,8 +487,22 @@ body, html {
 }
 
 .wat-panel .perspectieven-panel {
-  background-color: #ffffff !important; /* Wit, met !important om zeker te zijn dat het wordt toegepast */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.wat-panel .perspectieven-panel table {
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.wat-panel .perspectieven-panel td,
+.wat-panel .perspectieven-panel th {
+  padding: 8px 12px;
+}
+
+.wat-panel .form-panel {
+  flex-shrink: 0;
 }
 
 .wat-panel .react-container {
@@ -1265,4 +1280,10 @@ body, html {
 
 .clickable-header {
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .perspectieven-panel {
+    max-height: 700px;  /* Verhoogd voor desktop versie */
+  }
 }
