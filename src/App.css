@@ -208,15 +208,13 @@ body, html {
 @media (min-width: 768px) {
   .panel-container {
     flex-wrap: nowrap;
+    min-height: 800px;  /* Toegevoegd voor langere panels */
   }
 
   .wie-panel,
+  .wat-panel,
   .waar-panel {
     flex: 1;
-  }
-
-  .wat-panel {
-    flex: 2;
   }
 }
 
@@ -451,7 +449,15 @@ body, html {
 }
 
 .waar-panel .subpanel {
-  text-align: center; /* Centreert alle tekst in de subpanels */
+  width: 90%;
+  margin: 5px auto;
+}
+
+.waar-panel .subpanel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: calc(100% - 40px);
 }
 
 .waar-panel .subpanel h3 {
