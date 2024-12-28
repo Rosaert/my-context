@@ -12,7 +12,8 @@ const {
   GepindeContextenFunctie: gepindeContextenFunctie,
   AppShopsFunctie: appShopsFunctie,
   MijnAppsFunctie: mijnAppsFunctie,
-  BoodschappenFunctie: boodschappenFunctie
+  BoodschappenFunctie: boodschappenFunctie,
+  DeelcontextenFunctie: DeelcontextenFunctie
 } = APPFUNCTIONS;
 
 const App: React.FC = () => {
@@ -72,16 +73,6 @@ const App: React.FC = () => {
   };
 
 
-  // Aangepaste functie voor de deelcontext tabel
-  const deelcontextTabelFunctie = () => {
-    const tableHtml = alleProductenFunctie(); // De originele HTML string
-    // Voeg onClick handler toe aan de Melk rij
-    return tableHtml.replace(
-      /<tr([^>]*)>([^<]*Melk[^<]*)<\/tr>/g, 
-      '<tr$1 class="clickable" onclick="handleDeelcontextClick(\'Melk\')"$2</tr>'
-    );
-  };
-
   const toggleCenterPanel = () => {
     setIsCenterPanelVisible(!isCenterPanelVisible);
   };
@@ -91,6 +82,28 @@ const App: React.FC = () => {
       setIsRightOverlayVisible(true);
     }
   };
+
+  const handleContextClick = (rowIndex: number) => {
+    if (rowIndex === 1) { // Eerste rij (na header)
+      setIsRightOverlayVisible(true);
+    }
+  };
+
+   // Component voor de Alle producten tabel met click handler
+   const deelcontextTabelFunctie: React.FC = () => {
+    return (
+      <div 
+        dangerouslySetInnerHTML={{ __html: DeelcontextenFunctie() }}
+        onClick={(e) => {
+          const row = (e.target as HTMLElement).closest('tr');
+          if (row) {
+            handleContextClick(row.rowIndex);
+          }
+        }}
+      />
+    );
+  };
+
 
   // Component voor de Alle producten tabel met click handler
   const AlleProductenTable: React.FC = () => {
@@ -167,7 +180,6 @@ const App: React.FC = () => {
             <h2>Wie</h2>
             <div className="subpanel-container">
               <div className="subpanel gebruikers-panel">
-                <h3>Boodschappers</h3>
                 <div dangerouslySetInnerHTML={{ __html: gebruikersrollenFunctie() }} />
               </div>
               <div className="subpanel chat-panel">
@@ -176,7 +188,7 @@ const App: React.FC = () => {
             </div>
           </div>
           
-          
+
         )}
         {(!isSmallScreen || activePanel === 'wat') && (
           <div className="panel wat-panel">
@@ -219,15 +231,8 @@ const App: React.FC = () => {
             <h2>Waar</h2>
             <div className="subpanel-container">
               <div className="subpanel in-context-panel">
-                <h3>Ga vanuit deze context naar..</h3>
-                <div 
-                  dangerouslySetInnerHTML={{ __html: deelcontextTabelFunctie() }}
-                  onClick={(e) => {
-                    const row = (e.target as HTMLElement).closest('tr');
-                    if (row?.textContent?.includes('Melk')) {
-                      handleProductClick(1);
-                    }
-                  }}
+                <h3>Volgende Contexten</h3>
+                <div dangerouslySetInnerHTML={{ __html: DeelcontextenFunctie() }}
                 />
               </div>
               <div className="subpanel laatste-panel">
@@ -237,7 +242,6 @@ const App: React.FC = () => {
               <div className="subpanel gepinde-panel">
                 <h3>Gepinde Contexten</h3>
                 <div dangerouslySetInnerHTML={{ __html: gepindeContextenFunctie() }} />
-
               </div>
             </div>
           </div>

@@ -266,7 +266,6 @@ body, html {
 
 .in-context-panel {
   flex: 2; /* Behoud relatieve grootte */
-  min-height: 300px; /* Verkleind van 400px naar 300px */
   padding: 15px; /* Iets minder padding */
   background-color: white;
   border-radius: 4px;
@@ -277,7 +276,7 @@ body, html {
 
 .in-context-panel h3 {
   margin-bottom: 15px; /* Iets minder marge */
-  font-size: 1.2rem;
+  font-size: 1 rem;
   color: #333;
 }
 

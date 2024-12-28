@@ -61,6 +61,23 @@ export const APPFUNCTIONS = {
     `;
   },
 
+
+  DeelcontextenFunctie: (): string => {
+    return `
+      <table>
+        <tr>
+          <td>Buurtfeest</td>
+        </tr>
+        <tr>
+          <td>Zorgen voor Koen</td>
+        </tr>
+        <tr>
+          <td>WA Verzekering</td>
+        </tr>
+      </table>
+    `;
+  },
+
   LaatsteContextenFunctie: (): string => {
     return `
       <table>
@@ -125,7 +142,7 @@ export const APPFUNCTIONS = {
     `;
   },
 
-  
+
   BoodschappenFunctie: (): string => {
     return `
       <table>
