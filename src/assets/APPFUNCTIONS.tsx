@@ -52,33 +52,34 @@ export const APPFUNCTIONS = {
     return `
       <table>
         <tr>
-          <th class="clickable-header" data-target="list-1">Boodschappenlijstje</th>
+          <th class="clickable-header" data-target="list-aap">Aap</th>
         </tr>
         <tr>
-          <td class="hidden-content" id="list-1">
+          <td class="hidden-content" id="list-aap">
             <table>
-              <tr><td>Melk</td></tr>
-              <tr><td>Brood</td></tr>
-              <tr><td>Kaas</td></tr>
-              <tr><td>Eieren</td></tr>
+              <tr><td>1</td></tr>
+              <tr><td>2</td></tr>
+              <tr><td>3</td></tr>
             </table>
           </td>
         </tr>
         <tr>
-          <th class="clickable-header" data-target="list-2">Producten</th>
+          <th class="clickable-header" data-target="list-noot">Noot</th>
         </tr>
         <tr>
-          <td class="hidden-content" id="list-2">
+          <td class="hidden-content" id="list-noot">
             <table>
-              <tr><td>Zuivel</td></tr>
-              <tr><td>Brood & Banket</td></tr>
-              <tr><td>Groente & Fruit</td></tr>
+              <tr><td>1</td></tr>
+              <tr><td>3</td></tr>
+              <tr><td>5</td></tr>
+              <tr><td>7</td></tr>
             </table>
           </td>
         </tr>
       </table>
     `;
   },
+
 
 
   DeelcontextenFunctie: (): string => {
