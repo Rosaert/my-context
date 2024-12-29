@@ -48,7 +48,7 @@ export const APPFUNCTIONS = {
     `;
   },
 
-  PerspectievenFunctie: (): string => {
+PerspectievenFunctie: (): string => {
     return `
       <table>
         <tr>
