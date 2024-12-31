@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import { APPFUNCTIONS } from './assets/APPFUNCTIONS.tsx';
+import { APPFUNCTIONS } from './assets/APPFUNC.tsx';
 
 const {
   GebruikersrollenFunctie: gebruikersrollenFunctie,
   ContextChatFunctie: contextChatFunctie,
   PerspectievenFunctie: perspectievenPaneelFunctie,
-  AlleProductenFunctie: alleProductenFunctie,
   LaatsteContextenFunctie: laatstGekozenContextenFunctie,
   GepindeContextenFunctie: gepindeContextenFunctie,
   AppShopsFunctie: appShopsFunctie,
   MijnAppsFunctie: mijnAppsFunctie,
-  BoodschappenFunctie: boodschappenFunctie,
-  DeelcontextenFunctie: DeelcontextenFunctie
+  DeelcontextenFunctie: DeelcontextenFunctie,
+  NotificatiesFunctie: NotificatiesFunctie,
+  ClipboardFunctie: ClipboardFunctie
 } = APPFUNCTIONS;
 
 const App: React.FC = () => {
